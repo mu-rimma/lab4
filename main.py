@@ -38,14 +38,27 @@ while True:
     event, values = window.read()
     if event == sg.WINDOW_CLOSED:
         break
-    elif event == 'Выбрать':
-        if values['-OPTION-'] == 'Килограммы в фунты':
-            result = float(values['-INPUT-'])*2.20462
-        elif values['-OPTION-'] == 'Фунты в килограммы':
-            result = float(values['-INPUT-'])*2.20462
-        elif values['-OPTION-'] == 'Килограммы в граммы':
-            result = float(values['-INPUT-'])*1000
 
-        window['-RESULT-'].update(f'Вес: {result}')
+    elif event == 'Сбросить':
+        window['-INPUT-'].update('')
+        window['-RESULT-'].update('')
+
+    elif event == 'Сбросить вариант конвертации':
+        window['-OPTION-'].update('')
+        window['-RESULT-'].update('')
+
+    elif (event == 'Выбрать') or (event == 'Конвертировать'):
+        if values['-OPTION-'] == '':
+            print('Не выбран вариант конвертации')
+            window['-RESULT-'].update('')
+        else:
+            if values['-OPTION-'] == 'Килограммы в фунты':
+                result = float(values['-INPUT-'])*2.20462
+            elif values['-OPTION-'] == 'Фунты в килограммы':
+                result = float(values['-INPUT-'])/2.20462
+            elif values['-OPTION-'] == 'Килограммы в граммы':
+                result = float(values['-INPUT-'])*1000
+
+            window['-RESULT-'].update(f'Вес: {result}')
 
 window.close()
